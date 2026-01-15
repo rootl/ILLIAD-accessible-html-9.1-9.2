@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<title>ILLiad - Change User Information</title>
+	<#INCLUDE filename="include_head.html">
+</head>
+
+<body>
+    <#INCLUDE filename="include_header.html">
+    <#INCLUDE filename="include_menu.html">  
+
+<script type="text/javascript" src="js/userNotificationPreferences.js"></script>
+
+<h1>Account Settings</h1>
+
+<div>
+  <p>Please note that the information below is used solely for contacting you about your requests.</p>
+  <p>* denotes a required field.</p>
+</div>
+
+<form action="illiad.dll" method="post" name="ChangeUserInformation">
+	<input type="hidden" name="ILLiadForm" value="ChangeUserInformation">
+	<input type="hidden" id="NotifyGroup" name="NotifyGroup" value="E-Mail">
+	<!-- renamed id to avoid duplicate IDs with visible select below -->
+	<input type="hidden" id="DeliveryGroupHidden" name="DeliveryGroup" value="<#PARAM name="DeliveryGroup">">
+	<!-- <input type="hidden" id="WebDeliveryGroup" name="WebDeliveryGroup" value="<#PARAM name="WebDeliveryGroup">"> -->
+	<input type="hidden" id="WebDeliveryGroup" name="WebDeliveryGroup" value="Yes">			
+	<input type="hidden" id="LoanDeliveryGroup" name="LoanDeliveryGroup" value="<#PARAM name="LoanDeliveryGroup">">
+	<input type="hidden" id="NVTGC" name="NVTGC" size="1" value="ILL">
+	<input type="hidden" name="NotificationMethod" value="Electronic">
+
+	<div class="no-height-30-percent">
+		<fieldset id="Personal-Information">
+			<legend>Personal Information</legend>
+
+			<div class="field-row">
+				<label for="FirstName" class="field_label">* First Name</label>
+				<div class="field">
+					<input id="FirstName" name="FirstName" type="text" size="40" class="f-name" value="<#PARAM name="FirstName">" required aria-required="true">
+				</div>
+				<br/>
+			</div>
+
+			<div class="field-row">
+				<label for="LastName" class="field_label">* Last Name</label>
+				<div class="field">
+					<input id="LastName" name="LastName" type="text" size="40" class="f-name" value="<#PARAM name="LastName">" required aria-required="true">
+				</div>
+				<br/>
+			</div>
+
+			<div class="field-row">
+				<label for="EMailAddress" class="field_label">* Email Address</label>
+				<div class="field">
+					<input id="EMailAddress" name="EMailAddress" type="email" size="40" class="f-name" value="<#PARAM name="EMailAddress">" required aria-required="true">
+				</div>
+				<br/>
+			</div>
+
+			<div class="field-row">
+				<label for="Phone" class="field_label">* Phone Number</label>
+				<div class="field">
+					<input id="Phone" name="Phone" type="tel" size="40" class="f-name" value="<#PARAM name="Phone">" required aria-required="true">
+				</div>
+				<br/>
+			</div>
+
+			<div class="field-row">
+				<label for="StatusGroup" class="field_label">* Status</label>
+				<div class="field">
+					<select id="StatusGroup" name="StatusGroup" size="1" class="f-name" aria-required="true" required>
+						<option selected><#PARAM name="StatusGroup"></option>
+						<option>Graduate</option>
+						<option>Faculty</option>
+						<option>Staff</option>
+						<option>Undergraduate</option>
+						<option>Guest</option>
+					</select>
+				</div>
+				<br/>
+			</div>
+
+			<div class="field-row">
+				<label for="Department" class="field_label">* Department</label>
+				<div class="field">
+					<select id="Department" name="Department" size="1" class="f-name" aria-required="true" required>
+						<option selected><#PARAM name="Department"></option>
+						<option value="Administration">Administration</option>
+						<option value="Anthropology">Anthropology</option>
+						<option value="Art">Art</option>
+						<option value="Biology">Biology</option>
+						<option value="Business">Business</option>
+						<option value="Communicative Disorders & Sciences, Speech Pathology">Communicative Disorders & Sciences, Speech Pathology</option>
+						<option value="Chemistry (Biochemistry)">Chemistry (Biochemistry)</option>
+						<option value="CIT">Computing and Media (Includes CIT)</option>
+						<option value="Communication & Speech Communication">Communication & Speech Communication</option>
+						<option value="Computer Science">Computer Science</option>
+						<option value="Education">Education</option>
+						<option value="English">English</option>
+						<option value="Foreign Languages">Foreign Languages</option>
+						<option value="Geography">Geography</option>
+						<option value="Geology">Geology</option>
+						<option value="History">History</option>
+						<option value="HPE">HPE</option>
+						<option value="Library">Library</option>
+						<option value="Math">Math</option>
+						<option value="Performing Arts, Drama and Music">Performing Arts, Drama and Music</option>
+						<option value="Philosophy">Philosophy</option>
+						<option value="Physics">Physics</option>
+						<option value="Political Science (Includes International Relations)">Political Science (Includes International Relations)</option>
+						<option value="Psychology">Psychology</option>
+						<option value="Sociology">Sociology</option>
+						<option value="Undecided">Undecided</option>
+					</select>
+				</div>
+				<br/>
+			</div>
+
+			<div class="field-row">
+				<label for="AuthorizedUsers" class="field_label">People authorized to pick up materials on your behalf (full name).</label>
+				<div class="field">
+					<textarea id="AuthorizedUsers" name="AuthorizedUsers" rows="2" cols="40" class="f-name"><#PARAM name="AuthorizedUsers"></textarea>
+				</div>
+				<br/>	<br/>
+			</div>
+
+			<!--  Delivery Methods Added back from 9.1 forms Leah -->
+			<section name="delivery-method-info">
+				<h3>Delivery Methods</h3>
+
+				<div class="form-group col-md-5">
+					<label for="DeliveryGroup" class="field_label">
+						<span class="<#ERROR name='ERRORDeliveryGroup'>">Preferred Article Delivery Method</span>
+					</label>
+					<select id="DeliveryGroup" name="DeliveryGroup" size="1" class="custom-select mr-sm-2" aria-label="Preferred Article Delivery Method">
+						<option selected><#PARAM name='DeliveryGroup'></option>
+						<option>Hold for Pickup</option>
+					</select>
+					<br/>
+				</div>
+
+				<div class="form-group col-md-5">
+					<label for="LoanDeliveryGroup" class="field_label">
+						<span class="<#ERROR name='ERRORLoanDeliveryGroup'>">Preferred Loan Delivery Method</span>
+					</label>
+					<select id="LoanDeliveryGroup" name="LoanDeliveryGroup" size="1" class="custom-select mr-sm-2" aria-label="Preferred Loan Delivery Method">
+						<option selected><#PARAM name='LoanDeliveryGroup'></option>
+						<option>Mail to Address</option>
+					</select>
+					<br>
+				</div>
+
+				<div class="form-group col-md-5">
+					<label for="WebDeliveryGroup" class="field_label">
+						<span class="<#ERROR name='ERRORWebDeliveryGroup'>">Preferred Electronic Delivery if Possible (PDF file via web)</span>
+					</label>
+					<select id="WebDeliveryGroup" name="WebDeliveryGroup" size="1" class="custom-select mr-sm-2" aria-label="Preferred Electronic Delivery">
+						<option selected><#PARAM name='WebDeliveryGroup'></option>
+						<!-- <option selected>Yes</option>
+						<option>No</option> -->
+					</select>
+					<br/>
+				</div>
+			</section>
+			<!-- end add DeliveryMethods -->
+
+		</fieldset><!-- end Personal Information fieldset -->
+	</div>
+
+	<div class="no-height-60-percent">
+		<fieldset id="Notification-Preferences">
+			<legend>Notification Preferences</legend>
+			<div style="margin-bottom: 20px;">
+				<#INCLUDE filename="include_notification_preferences.html">
+			</div>
+
+			<div style="float:left;margin-top:20px;">
+				<input type="submit" name="SubmitButton" value="Submit Information" class="f-submit" />
+				<input type="submit" name="SubmitButton" value="Cancel - Exit to Main Menu" class="f-submit" />
+			</div>
+		</fieldset>
+	</div>
+
+</form>
+
+<#INCLUDE filename="include_footer.html">
+</body>
+</html>
